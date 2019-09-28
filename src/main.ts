@@ -51,6 +51,7 @@ async function executeOutdated(
         args.push(projectOrSolutionFile);
     }
     args.push("package");
+    args.push("--outdated");
     if (option.config != null) {
         args.push("--config");
         args.push(option.config);
