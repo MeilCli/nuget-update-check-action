@@ -1,5 +1,5 @@
 name: 'nuget update checker'
-description: 'nuget new packeage version checker'
+description: 'nuget new package version checker'
 author: 'MeilCli'
 branding:
   icon: arrow-up
