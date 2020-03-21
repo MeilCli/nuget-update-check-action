@@ -25,7 +25,7 @@ jobs:
       with:
         dotnet-version: '3.0.100'
     - run: dotnet restore
-    - uses: MeilCli/nuget-update-check-action@v1
+    - uses: MeilCli/nuget-update-check-action@v2
       id: outdated
     - uses: 8398a7/action-slack@v2
       if: steps.outdated.outputs.has_nuget_update != 'false'
