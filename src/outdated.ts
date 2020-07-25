@@ -20,7 +20,7 @@ export function toOutdatedPackages(stdout: string[]): OutdatedPackage[] {
         const name = ar[1];
         const latest = ar[ar.length - 1];
 
-        if (result.find(x => x.name == name) != undefined) {
+        if (result.find((x) => x.name == name) != undefined) {
             continue;
         }
 

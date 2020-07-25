@@ -18,15 +18,13 @@ interface Option {
 
 function getOption(): Option {
     return {
-        projectOrSolutionFiles: getInputStringArray(
-            "project_or_solution_files"
-        ),
+        projectOrSolutionFiles: getInputStringArray("project_or_solution_files"),
         config: getInputString("config"),
         source: getInputString("source"),
         frameworks: getInputStringArray("frameworks"),
         highestMinor: getInputBoolean("highest_minor"),
         highestPatch: getInputBoolean("highest_patch"),
-        includePreRelease: getInputBoolean("include_prerelease")
+        includePreRelease: getInputBoolean("include_prerelease"),
     };
 }
 
@@ -34,16 +32,13 @@ async function checkEnvironment() {
     await io.which("dotnet", true);
 }
 
-async function executeOutdated(
-    projectOrSolutionFile: string | null,
-    option: Option
-) {
+async function executeOutdated(projectOrSolutionFile: string | null, option: Option) {
     const execOption: ExecOptions = {};
     let stdout = "";
     execOption.listeners = {
         stdout: (data: Buffer) => {
             stdout += data.toString();
-        }
+        },
     };
 
     const args: string[] = [];
@@ -103,22 +98,16 @@ async function run() {
         const result: OutdatedPackage[] = [];
         if (option.projectOrSolutionFiles == null) {
             const packages = await executeOutdated(null, option);
-            packages.forEach(x => result.push(x));
+            packages.forEach((x) => result.push(x));
         } else {
             for (const projectOrSolutionFile of option.projectOrSolutionFiles) {
-                const packages = await executeOutdated(
-                    projectOrSolutionFile,
-                    option
-                );
-                packages.forEach(x => result.push(x));
+                const packages = await executeOutdated(projectOrSolutionFile, option);
+                packages.forEach((x) => result.push(x));
             }
         }
 
         const outputText = convertToOutputText(result);
-        core.setOutput(
-            "has_nuget_update",
-            result.length == 0 ? "false" : "true"
-        );
+        core.setOutput("has_nuget_update", result.length == 0 ? "false" : "true");
         core.setOutput("nuget_update_text", outputText);
         core.setOutput("nuget_update_json", JSON.stringify(result));
     } catch (error) {
