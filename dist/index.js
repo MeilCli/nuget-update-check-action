@@ -1015,7 +1015,7 @@ function getOption() {
         frameworks: input_1.getInputStringArray("frameworks"),
         highestMinor: input_1.getInputBoolean("highest_minor"),
         highestPatch: input_1.getInputBoolean("highest_patch"),
-        includePreRelease: input_1.getInputBoolean("include_prerelease")
+        includePreRelease: input_1.getInputBoolean("include_prerelease"),
     };
 }
 function checkEnvironment() {
@@ -1030,7 +1030,7 @@ function executeOutdated(projectOrSolutionFile, option) {
         execOption.listeners = {
             stdout: (data) => {
                 stdout += data.toString();
-            }
+            },
         };
         const args = [];
         if (projectOrSolutionFile != null) {
@@ -1086,12 +1086,12 @@ function run() {
             const result = [];
             if (option.projectOrSolutionFiles == null) {
                 const packages = yield executeOutdated(null, option);
-                packages.forEach(x => result.push(x));
+                packages.forEach((x) => result.push(x));
             }
             else {
                 for (const projectOrSolutionFile of option.projectOrSolutionFiles) {
                     const packages = yield executeOutdated(projectOrSolutionFile, option);
-                    packages.forEach(x => result.push(x));
+                    packages.forEach((x) => result.push(x));
                 }
             }
             const outputText = convertToOutputText(result);
@@ -1476,7 +1476,7 @@ function getInputStringArray(name, required = false) {
     let result = core
         .getInput(name, { required: required })
         .split(os.EOL)
-        .map(x => x.trim());
+        .map((x) => x.trim());
     if (result.length == 1 && result[0].length == 0) {
         result = null;
     }
@@ -1540,7 +1540,7 @@ function toOutdatedPackages(stdout) {
         }
         const name = ar[1];
         const latest = ar[ar.length - 1];
-        if (result.find(x => x.name == name) != undefined) {
+        if (result.find((x) => x.name == name) != undefined) {
             continue;
         }
         result.push({ name: name, latest: latest });
