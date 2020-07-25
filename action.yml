@@ -1,31 +1,31 @@
-name: "nuget update checker"
-description: "nuget new package version checker"
-author: "MeilCli"
+name: 'nuget update checker'
+description: 'nuget new package version checker'
+author: 'MeilCli'
 branding:
   icon: arrow-up
   color: blue
 inputs:
   project_or_solution_files:
-    description: "target project or solution files"
+    description: 'target project or solution files'
   config:
-    description: "The NuGet sources to use when searching for newer packages"
+    description: 'The NuGet sources to use when searching for newer packages'
   source:
-    description: "The NuGet sources to use when searching for newer packages"
+    description: 'The NuGet sources to use when searching for newer packages'
   frameworks:
-    description: "Displays only the packages applicable for the specified target framework"
+    description: 'Displays only the packages applicable for the specified target framework'
   highest_minor:
-    description: "Considers only the packages with a matching major version number when searching for newer packages"
+    description: 'Considers only the packages with a matching major version number when searching for newer packages'
   highest_patch:
-    description: "Considers only the packages with a matching major and minor version numbers when searching for newer packages"
+    description: 'Considers only the packages with a matching major and minor version numbers when searching for newer packages'
   include_prerelease:
-    description: "Considers packages with prerelease versions when searching for newer packages"
+    description: 'Considers packages with prerelease versions when searching for newer packages'
 outputs:
   has_nuget_update:
-    description: "has new package version information"
+    description: 'has new package version information'
   nuget_update_text:
-    description: "new package version information text"
+    description: 'new package version information text'
   nuget_update_json:
-    description: "new package version information json"
+    description: 'new package version information json'
 runs:
-  using: "node12"
-  main: "dist/index.js"
+  using: 'node12'
+  main: 'dist/index.js'
