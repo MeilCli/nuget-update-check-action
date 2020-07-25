@@ -1,6 +1,6 @@
 # nuget-update-check-action
 ![](https://github.com/MeilCli/nuget-update-check-action/workflows/CI/badge.svg)  
-JavaScript based nuget new package version check action for GitHub Actions.
+nuget new package version check action for GitHub Actions.
 
 ## Required
 This action must execute after [setup-dotnet](https://github.com/actions/setup-dotnet) and `dotnet restore`.
