@@ -20,12 +20,12 @@ jobs:
   nuget:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.0.100'
     - run: dotnet restore
-    - uses: MeilCli/nuget-update-check-action@v2
+    - uses: MeilCli/nuget-update-check-action@v3
       id: outdated
     - uses: 8398a7/action-slack@v2
       if: steps.outdated.outputs.has_nuget_update != 'false'
@@ -37,6 +37,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 ```
+You can also pin to a [specific release](https://github.com/MeilCli/nuget-update-check-action/releases) version in the format `@v3.x.x`
 
 ## input
 - `project_or_solution_files`
