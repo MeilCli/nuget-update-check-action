@@ -75,5 +75,8 @@ You can also pin to a [specific release](https://github.com/MeilCli/nuget-update
 - `nuget_update_json`
   - new package version information json
 
+## Contributing
+see [Contributing.md](./.github/CONTRIBUTING.md)
+
 ## License
 [MIT License](LICENSE).
