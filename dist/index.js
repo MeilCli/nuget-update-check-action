@@ -95,15 +95,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
 const exec = __importStar(__nccwpck_require__(514));
@@ -122,55 +113,51 @@ function getOption() {
         includePreRelease: (0, input_1.getInputBoolean)("include_prerelease"),
     };
 }
-function checkEnvironment() {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield io.which("dotnet", true);
-    });
+async function checkEnvironment() {
+    await io.which("dotnet", true);
 }
-function executeOutdated(projectOrSolutionFile, option) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const execOption = {};
-        let stdout = "";
-        execOption.listeners = {
-            stdout: (data) => {
-                stdout += data.toString();
-            },
-        };
-        const args = [];
-        if (projectOrSolutionFile != null) {
-            args.push(projectOrSolutionFile);
-        }
-        args.push("package");
-        args.push("--outdated");
-        if (option.config != null) {
-            args.push("--config");
-            args.push(option.config);
-        }
-        if (option.source != null) {
-            args.push("--source");
-            args.push(option.source);
-        }
-        if (option.frameworks != null) {
-            for (const framework of option.frameworks) {
-                if (framework.length == 0) {
-                    continue;
-                }
-                args.push("--framework");
-                args.push(framework);
+async function executeOutdated(projectOrSolutionFile, option) {
+    const execOption = {};
+    let stdout = "";
+    execOption.listeners = {
+        stdout: (data) => {
+            stdout += data.toString();
+        },
+    };
+    const args = [];
+    if (projectOrSolutionFile != null) {
+        args.push(projectOrSolutionFile);
+    }
+    args.push("package");
+    args.push("--outdated");
+    if (option.config != null) {
+        args.push("--config");
+        args.push(option.config);
+    }
+    if (option.source != null) {
+        args.push("--source");
+        args.push(option.source);
+    }
+    if (option.frameworks != null) {
+        for (const framework of option.frameworks) {
+            if (framework.length == 0) {
+                continue;
             }
+            args.push("--framework");
+            args.push(framework);
         }
-        if (option.highestMinor) {
-            args.push("--highest-minor");
-        }
-        if (option.highestPatch) {
-            args.push("--highest-patch");
-        }
-        if (option.includePreRelease) {
-            args.push("--include-prerelease");
-        }
-        yield exec.exec("dotnet list", args, execOption);
-        return (0, outdated_1.toOutdatedPackages)(stdout.split("\n"));
-    });
+    }
+    if (option.highestMinor) {
+        args.push("--highest-minor");
+    }
+    if (option.highestPatch) {
+        args.push("--highest-patch");
+    }
+    if (option.includePreRelease) {
+        args.push("--include-prerelease");
+    }
+    await exec.exec("dotnet list", args, execOption);
+    return (0, outdated_1.toOutdatedPackages)(stdout.split("\n"));
 }
 function convertToOutputText(outdatedPackages) {
     let result = "";
@@ -182,33 +169,31 @@ function convertToOutputText(outdatedPackages) {
     }
     return result;
 }
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield checkEnvironment();
-            const option = getOption();
-            const result = [];
-            if (option.projectOrSolutionFiles == null) {
-                const packages = yield executeOutdated(null, option);
+async function run() {
+    try {
+        await checkEnvironment();
+        const option = getOption();
+        const result = [];
+        if (option.projectOrSolutionFiles == null) {
+            const packages = await executeOutdated(null, option);
+            packages.forEach((x) => result.push(x));
+        }
+        else {
+            for (const projectOrSolutionFile of option.projectOrSolutionFiles) {
+                const packages = await executeOutdated(projectOrSolutionFile, option);
                 packages.forEach((x) => result.push(x));
             }
-            else {
-                for (const projectOrSolutionFile of option.projectOrSolutionFiles) {
-                    const packages = yield executeOutdated(projectOrSolutionFile, option);
-                    packages.forEach((x) => result.push(x));
-                }
-            }
-            const outputText = convertToOutputText(result);
-            core.setOutput("has_nuget_update", result.length == 0 ? "false" : "true");
-            core.setOutput("nuget_update_text", outputText);
-            core.setOutput("nuget_update_json", JSON.stringify(result));
         }
-        catch (error) {
-            if (error instanceof Error) {
-                core.setFailed(error.message);
-            }
+        const outputText = convertToOutputText(result);
+        core.setOutput("has_nuget_update", result.length == 0 ? "false" : "true");
+        core.setOutput("nuget_update_text", outputText);
+        core.setOutput("nuget_update_json", JSON.stringify(result));
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            core.setFailed(error.message);
         }
-    });
+    }
 }
 run();
 
