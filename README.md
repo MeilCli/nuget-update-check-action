@@ -75,8 +75,11 @@ You can also pin to a [specific release](https://github.com/MeilCli/nuget-update
 - `nuget_update_json`
   - new package version information json
 
-## Contributing
+## Contributes
+[<img src="https://gist.github.com/MeilCli/9be950d02fa29fb64832a61b87b9618f/raw/f7bbb334deca6e35018799d9f21239f3c47b7872/metrics_contributors.svg">](https://github.com/MeilCli/nuget-update-check-action/graphs/contributors)
+
+### Could you want to contribute?
 see [Contributing.md](./.github/CONTRIBUTING.md)
 
 ## License
-[MIT License](LICENSE).
+[<img src="https://gist.github.com/MeilCli/9be950d02fa29fb64832a61b87b9618f/raw/f7bbb334deca6e35018799d9f21239f3c47b7872/metrics_licenses.svg">](LICENSE)
