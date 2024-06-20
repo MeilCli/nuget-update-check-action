@@ -30,7 +30,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getInputBoolean = exports.getInputString = exports.getInputStringArray = void 0;
+exports.getInputStringArray = getInputStringArray;
+exports.getInputString = getInputString;
+exports.getInputBoolean = getInputBoolean;
 const core = __importStar(__nccwpck_require__(186));
 const os = __importStar(__nccwpck_require__(37));
 function getInputStringArray(name, required = false) {
@@ -43,7 +45,6 @@ function getInputStringArray(name, required = false) {
     }
     return result;
 }
-exports.getInputStringArray = getInputStringArray;
 function getInputString(name, required = false) {
     let result = core.getInput(name, { required: required });
     if (result.length == 0) {
@@ -51,7 +52,6 @@ function getInputString(name, required = false) {
     }
     return result;
 }
-exports.getInputString = getInputString;
 function getInputBoolean(name, required = false, defaultValue = false) {
     const value = core.getInput(name, { required: required });
     if (value == "true") {
@@ -62,7 +62,6 @@ function getInputBoolean(name, required = false, defaultValue = false) {
     }
     return defaultValue;
 }
-exports.getInputBoolean = getInputBoolean;
 
 
 /***/ }),
@@ -206,7 +205,7 @@ run();
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.toOutdatedPackages = void 0;
+exports.toOutdatedPackages = toOutdatedPackages;
 function toOutdatedPackages(stdout) {
     const result = [];
     for (const line of stdout) {
@@ -227,7 +226,6 @@ function toOutdatedPackages(stdout) {
     }
     return result;
 }
-exports.toOutdatedPackages = toOutdatedPackages;
 
 
 /***/ }),
